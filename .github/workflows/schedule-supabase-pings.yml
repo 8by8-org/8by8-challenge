@@ -1,6 +1,7 @@
 name: 'Schedule Supabase Pings'
 
 on:
+  workflow_dispatch:
   schedule:
     # Run this job at 4:30 AM UTC every Sunday and Thursday. Scheduled jobs are
     # often delayed and can be dropped during peak times (see
@@ -16,9 +17,15 @@ jobs:
   ping-staging:
     uses: ./.github/workflows/ping-supabase.yml
     with:
-      environment-name: staging
+      environment: staging
+    secrets:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
   ping-prod:
     uses: ./.github/workflows/ping-supabase.yml
     with:
-      environment-name: production
+      environment: production
+    secrets:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}

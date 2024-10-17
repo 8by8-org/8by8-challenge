@@ -5,21 +5,26 @@ name: 'Ping Supabase'
 on:
   workflow_call:
     inputs:
-      environment-name:
+      environment:
         type: string
         required: true
-
+    secrets:
+      SUPABASE_URL:
+        required: true
+      SUPABASE_ANON_KEY:
+        required: true
+  
 jobs:
   ping:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment-name }}
+    environment: ${{ inputs.environment }}
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - run: npm ci
