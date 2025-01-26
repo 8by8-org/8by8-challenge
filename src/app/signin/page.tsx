@@ -18,6 +18,7 @@ import { FormInvalidError } from '@/utils/client/form-invalid-error';
 import { LoadingWheel } from '@/components/utils/loading-wheel';
 import { isErrorWithMessage } from '@/utils/shared/is-error-with-message';
 import styles from './styles.module.scss';
+import { Button  } from '../../components/utils/button/button';
 
 export default isSignedOut(function SignIn() {
   const signInForm = useForm(new SignInForm());
@@ -84,13 +85,13 @@ export default isSignedOut(function SignIn() {
           <Turnstile field={signInForm.fields.captchaToken} />
         </div>
         <div className={styles.submit_btn_container}>
-          <button
+          <Button
             type="submit"
             className="btn_gradient btn_lg btn_wide"
             disabled={isLoading}
           >
             Sign in
-          </button>
+          </Button>
         </div>
       </form>
       <div className={styles.sign_up_link_container}>

@@ -19,6 +19,8 @@ import { FormInvalidError } from '@/utils/client/form-invalid-error';
 import { LoadingWheel } from '@/components/utils/loading-wheel';
 import { isErrorWithMessage } from '@/utils/shared/is-error-with-message';
 import styles from './styles.module.scss';
+import  { Button, type ButtonProps } from '../../components/utils/button/button';
+
 
 export default isSignedOut(function SignUp() {
   const signUpForm = useForm(new SignUpForm());
@@ -117,13 +119,13 @@ export default isSignedOut(function SignUp() {
           </p>
         </div>
         <div className={styles.submit_btn_container}>
-          <button
+          <Button
             type="submit"
             className="btn_gradient btn_lg btn_wide"
             disabled={isLoading}
           >
             Sign Up
-          </button>
+          </Button>
         </div>
       </form>
       <div className={styles.sign_in_link_container}>
