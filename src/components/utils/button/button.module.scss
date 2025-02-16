@@ -22,7 +22,7 @@
 @mixin -outline {
   &::after {
     content: '';
-    position: absolute ;
+    position: absolute;
     border-radius: 40px;
     top: -8px;
     left: -8px;
@@ -31,6 +31,7 @@
     border: $color-white 4px solid;
   }
 }
+
 
 @mixin -gradient-text {
   :first-child {
@@ -44,6 +45,8 @@
     font-size: inherit;
   }
 }
+
+
 
 .gradient {
   @include -base;

@@ -2,7 +2,6 @@ import { middleware, config } from '@/middleware';
 import { rateLimiters } from '@/middlewares/rate-limit';
 import { SIGNED_IN_ONLY_ROUTES } from '@/middlewares/is-signed-in';
 import { SIGNED_OUT_ONLY_ROUTES } from '@/middlewares/is-signed-out';
-import { getSignedInRequest } from '@/utils/test/get-signed-in-request';
 import { willBeRedirected } from '@/utils/shared/will-be-redirected';
 import { resetAuthAndDatabase } from '@/utils/test/reset-auth-and-database';
 import { Builder } from 'builder-pattern';
@@ -181,7 +180,11 @@ describe('middleware', () => {
   it(`redirects the user to /progress if the route it receives is signed-out 
   only and the user is signed as a challenger.`, async () => {
     for (const route of SIGNED_OUT_ONLY_ROUTES) {
-      const request = await getSignedInRequest(host + route, {
+      const user = await new SupabaseUserRecordBuilder('user@example.com')
+        .type(UserType.Challenger)
+        .build();
+
+      const request = await getSignedInRequestWithUser(user, host + route, {
         method: 'GET',
         ip,
       });
@@ -349,7 +352,11 @@ describe('middleware', () => {
   it(`does not redirect the user if the route it receives is signed-in only and
   the user is signed in.`, async () => {
     for (const route of SIGNED_IN_ONLY_ROUTES) {
-      const request = await getSignedInRequest(host + route, {
+      const user = await new SupabaseUserRecordBuilder('user@example.com')
+        .type(UserType.Challenger)
+        .build();
+
+      const request = await getSignedInRequestWithUser(user, host + route, {
         method: 'GET',
         ip,
       });

@@ -42,3 +42,4 @@ export function PlayerBadge({ badge, index }: PlayerBadgeProps): JSX.Element {
     </div>
   );
 }
+

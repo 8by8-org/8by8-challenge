@@ -27,8 +27,10 @@ export function Button({
   }
 
   return (
-    <button className={classNames.join(' ')} {...htmlButtonProps}>
+    <div className='button-wrapper'>
+      <button className={classNames.join(' ')} {...htmlButtonProps}>
       <span>{children}</span>
     </button>
+    </div>
   );
 }
