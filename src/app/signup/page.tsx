@@ -19,7 +19,7 @@ import { FormInvalidError } from '@/utils/client/form-invalid-error';
 import { LoadingWheel } from '@/components/utils/loading-wheel';
 import { isErrorWithMessage } from '@/utils/shared/is-error-with-message';
 import styles from './styles.module.scss';
-import  { Button  } from '../../components/utils/button/button';
+import  { Button  } from '../../components/utils/button';
 
 
 export default isSignedOut(function SignUp() {
