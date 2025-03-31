@@ -13,7 +13,7 @@ import stepThree from '../../../public/static/images/pages/challenger-welcome/st
 import stepFour from '../../../public/static/images/pages/challenger-welcome/step-4.png';
 import logo from '../../../public/static/images/shared/8by8-logo.svg';
 import styles from './styles.module.scss';
-import  { Button, type ButtonProps } from '../../components/utils/button';
+import  { Button } from '../../components/utils/button';
 
 export const ChallengerWelcome = isSignedOut(
   wasNotInvited(function ChallengerWelcome() {
