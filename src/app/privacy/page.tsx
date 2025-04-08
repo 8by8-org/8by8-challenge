@@ -1,5 +1,11 @@
 import { PageContainer } from '@/components/utils/page-container';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
+import type { Metadata } from 'next';
 import styles from './styles.module.scss';
+
+export const metadata: Metadata = {
+  title: `${HOME_PAGE_TITLE} | Privacy Policy`,
+};
 
 export default function PrivacyPolicyPage() {
   return (

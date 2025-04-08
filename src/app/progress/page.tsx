@@ -13,7 +13,13 @@ import blackCurve from '@/../public/static/images/pages/progress/black-curve.svg
 import { Badges } from '@/components/progress/badges';
 import { isSignedIn } from '@/components/guards/is-signed-in';
 import { VoterRegistrationPathnames } from '../register/constants/voter-registration-pathnames';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
+import type { Metadata } from 'next';
 import styles from './styles.module.scss';
+
+export const metadata: Metadata = {
+  title: `${HOME_PAGE_TITLE} | Progress`,
+};
 
 export default isSignedIn(function Progress() {
   const { user } = useContextSafely(UserContext, 'UserContext');

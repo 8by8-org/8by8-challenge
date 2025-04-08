@@ -7,7 +7,13 @@ import { useContextSafely } from '@/hooks/use-context-safely';
 import { UserContext } from '@/contexts/user-context';
 import { PageContainer } from '@/components/utils/page-container';
 import { LinkButton } from '@/components/utils/link-button';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
+import { Metadata } from 'next';
 import styles from './styles.module.scss';
+
+export const metadata: Metadata = {
+  title: `${HOME_PAGE_TITLE} | Player Welcome`,
+};
 
 export default isSignedOut(
   wasInvited(function PlayerWelcome() {

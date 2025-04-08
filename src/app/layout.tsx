@@ -6,6 +6,7 @@ import { Footer } from '@/components/footer';
 import { bebasNeue } from '@/fonts/bebas-neue';
 import { lato } from '@/fonts/lato';
 import { AnalyticsProvider } from '@/analytics/analytics-provider';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import '../styles/main.scss';
@@ -15,7 +16,7 @@ interface RootLayoutProps {
 }
 
 export const metadata: Metadata = {
-  title: '8by8 Challenge',
+  title: HOME_PAGE_TITLE,
   description:
     'Join us in promoting civic engagement to combat hate against the AAPI community. Register to vote, sign up for election reminders, and share your challenge to earn badges. Together, we can make a difference! Made by 8by8.us with ❤️',
   openGraph: {

@@ -21,7 +21,13 @@ import { isErrorWithMessage } from '@/utils/shared/is-error-with-message';
 import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
 import { AnalyticsEventType } from '@/analytics/analytics-event-type';
 import { getInvalidFieldNames } from '@/utils/client/get-invalid-field-names';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
+import type { Metadata } from 'next';
 import styles from './styles.module.scss';
+
+export const metadata: Metadata = {
+  title: `${HOME_PAGE_TITLE} | Sign up`,
+};
 
 export default isSignedOut(function SignUp() {
   const signUpForm = useForm(new SignUpForm());

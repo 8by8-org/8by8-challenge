@@ -18,7 +18,13 @@ import { Button } from '@/components/utils/button';
 import { isErrorWithMessage } from '@/utils/shared/is-error-with-message';
 import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
 import { AnalyticsEventType } from '@/analytics/analytics-event-type';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
+import type { Metadata } from 'next';
 import styles from './styles.module.scss';
+
+export const metadata: Metadata = {
+  title: `${HOME_PAGE_TITLE} | Enter Passcode`,
+};
 
 export default isSignedOut(
   sentOTP(function SignInWithOTP() {
