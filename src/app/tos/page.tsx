@@ -4,6 +4,7 @@ import { HOME_PAGE_TITLE } from '@/constants/metadata';
 import type { Metadata } from 'next';
 import styles from './styles.module.scss';
 
+/* istanbul ignore next */
 export const metadata: Metadata = {
   title: `${HOME_PAGE_TITLE} | Terms of Service`,
 };
