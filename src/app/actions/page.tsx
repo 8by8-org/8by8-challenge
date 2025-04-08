@@ -10,13 +10,7 @@ import { AvailableActions } from './available-actions';
 import { BadgeAwardedMessage } from './badge-awarded-message';
 import { Links } from './links';
 import { hasCompletedAllActions } from './utils/has-completed-all-actions';
-import { HOME_PAGE_TITLE } from '@/constants/metadata';
-import type { Metadata } from 'next';
 import styles from './styles.module.scss';
-
-export const metadata: Metadata = {
-  title: `${HOME_PAGE_TITLE} | Actions`,
-};
 
 export default isSignedIn(
   isPlayerOrHybrid(function ActionsPage() {

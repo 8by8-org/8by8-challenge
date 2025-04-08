@@ -9,14 +9,8 @@ import { VoterRegistrationForm } from './voter-registration-form';
 import { VoterRegistrationContext } from './voter-registration-context';
 import { PageContainer } from '@/components/utils/page-container';
 import { ProgressBar } from './progress-bar';
-import { HOME_PAGE_TITLE } from '@/constants/metadata';
-import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
 import styles from './styles.module.scss';
-
-export const metadata: Metadata = {
-  title: `${HOME_PAGE_TITLE} | Register to Vote`,
-};
 
 export default isSignedIn(function VoterRegistrationLayout({
   children,

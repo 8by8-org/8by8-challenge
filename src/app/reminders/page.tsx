@@ -4,13 +4,7 @@ import { PageContainer } from '@/components/utils/page-container';
 import { PledgeToVoteForm } from './pledge-to-vote-form';
 import { hasNotCompletedAction } from '@/components/guards/has-not-completed-action';
 import { Actions } from '@/model/enums/actions';
-import { HOME_PAGE_TITLE } from '@/constants/metadata';
-import type { Metadata } from 'next';
 import styles from './styles.module.scss';
-
-export const metadata: Metadata = {
-  title: `${HOME_PAGE_TITLE} | Get Election Reminders`,
-};
 
 export default isSignedIn(
   hasNotCompletedAction(
