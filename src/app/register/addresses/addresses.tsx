@@ -21,6 +21,9 @@ import { getFirstNonValidInputId } from './utils/get-first-nonvalid-input-id';
 import { focusOnElementById } from '@/utils/client/focus-on-element-by-id';
 import { validateAddresses } from './utils/validate-addresses';
 import { applyCautionValidityToFormFields } from './utils/apply-caution-validity-to-form-fields';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
+import { getInvalidFieldNames } from '@/utils/client/get-invalid-field-names';
 import type { FormEventHandler } from 'react';
 import type { AddressErrors } from '@/model/types/addresses/address-errors';
 import styles from './styles.module.scss';
@@ -48,6 +51,12 @@ export const Addresses = hasNotCompletedAction(
       if (!ValidityUtils.isValidOrCaution(addressesForm)) {
         const firstNonValidInputId = getFirstNonValidInputId(addressesForm);
         firstNonValidInputId && focusOnElementById(firstNonValidInputId);
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId: addressesForm.id,
+          formName: addressesForm.name,
+          succeeded: false,
+          invalidFields: getInvalidFieldNames(addressesForm),
+        });
         return;
       }
 
@@ -63,6 +72,11 @@ export const Addresses = hasNotCompletedAction(
           VoterRegistrationPathnames.OTHER_DETAILS +
             `?state=${addressesForm.state.value.homeAddress.state}`,
         );
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId: addressesForm.id,
+          formName: addressesForm.name,
+          succeeded: true,
+        });
       }
     };
 
@@ -73,7 +87,7 @@ export const Addresses = hasNotCompletedAction(
     };
 
     return (
-      <form onSubmit={onSubmit}>
+      <form id={addressesForm.id} name={addressesForm.name} onSubmit={onSubmit}>
         {isLoading && <LoadingWheel />}
         <HomeAddress />
         <Checkbox

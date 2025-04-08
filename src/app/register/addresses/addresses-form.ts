@@ -6,6 +6,7 @@ import { PreviousAddressForm } from './previous-address/previous-address-form';
 export const AddressesForm = FormFactory.createSubForm(
   class AddressesTemplate extends SubFormTemplate {
     public readonly name = 'addresses';
+    public readonly id = 'voter-registration/addresses';
     public readonly fields: [
       InstanceType<typeof HomeAddressForm>,
       InstanceType<typeof MailingAddressForm>,

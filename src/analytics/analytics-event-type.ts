@@ -1,4 +1,4 @@
-export enum EventType {
+export enum AnalyticsEventType {
   FormSubmit = 'form_submit',
   SignUp = 'sign_up',
   SignIn = 'sign_in',

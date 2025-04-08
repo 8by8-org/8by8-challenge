@@ -23,6 +23,8 @@ export const NorthDakota: Story = {
           stateAbbr="ND"
           showModal
           setShowModal={() => {}}
+          parentFormId=""
+          parentFormName=""
         />
       </GlobalStylesProvider>
     );
@@ -37,6 +39,8 @@ export const NewHampshire: Story = {
           stateAbbr="NH"
           showModal
           setShowModal={() => {}}
+          parentFormId=""
+          parentFormName=""
         />
       </GlobalStylesProvider>
     );
@@ -51,6 +55,8 @@ export const Wyoming: Story = {
           stateAbbr="WY"
           showModal
           setShowModal={() => {}}
+          parentFormId=""
+          parentFormName=""
         />
       </GlobalStylesProvider>
     );

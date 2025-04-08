@@ -1,23 +1,24 @@
-import type { EventType } from './event-type';
+import type { AnalyticsEventType } from './analytics-event-type';
 import type { UserType } from '@/model/enums/user-type';
 
 export interface EventParameters {
-  [EventType.FormSubmit]: {
+  [AnalyticsEventType.FormSubmit]: {
     succeeded: boolean;
     formId: string;
     formName?: string;
     invalidFields?: string[];
   };
-  [EventType.SignUp]: {
+  [AnalyticsEventType.SignUp]: {
     userType: UserType;
   };
-  [EventType.ShareChallenge]: {
+  [AnalyticsEventType.ShareChallenge]: {
+    userType: UserType;
+    firstShare: boolean;
+  };
+  [AnalyticsEventType.GetElectionReminders]: {
     userType: UserType;
   };
-  [EventType.GetElectionReminders]: {
-    userType: UserType;
-  };
-  [EventType.RegisterToVote]: {
+  [AnalyticsEventType.RegisterToVote]: {
     userType: UserType;
     USState: string;
   };
