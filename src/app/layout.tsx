@@ -5,6 +5,7 @@ import { RestartChallengeModal } from '@/contexts/user-context/restart-challenge
 import { Footer } from '@/components/footer';
 import { bebasNeue } from '@/fonts/bebas-neue';
 import { lato } from '@/fonts/lato';
+import { AnalyticsProvider } from '@/analytics/analytics-provider';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import '../styles/main.scss';
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Footer />
           </UserContextProvider>
         </AlertsContextProvider>
+        <AnalyticsProvider />
       </body>
     </html>
   );
