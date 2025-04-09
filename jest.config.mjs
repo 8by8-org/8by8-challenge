@@ -12,6 +12,7 @@ const config = {
   setupFiles: ['jest-canvas-mock', './jest-setup.js'],
   setupFilesAfterEnv: ['./jest-setup-after-env.js'],
   collectCoverage: true,
+  coverageProvider: 'v8',
   // add directories here to include them in coverage reports and threshold
   collectCoverageFrom: ['./src/**'],
   // files that should not be counted against the test coverage thresholds
@@ -36,7 +37,7 @@ const config = {
     // pledge to vote form is heavily reliant on the content rendered in its IFrame from Rock the Vote
     '<rootDir>/src/app/reminders/pledge-to-vote-form/',
     // analytics mounts scripts which are not mounted or executed by default in the test environment
-    '<rootDor>/src/analytics/analytics-provider.tsx',
+    '<rootDir>/src/analytics/analytics-provider.tsx',
   ],
   //require 100% code coverage for the tests to pass
   coverageThreshold: {
