@@ -12,7 +12,6 @@ const config = {
   setupFiles: ['jest-canvas-mock', './jest-setup.js'],
   setupFilesAfterEnv: ['./jest-setup-after-env.js'],
   collectCoverage: true,
-  coverageProvider: 'v8',
   // add directories here to include them in coverage reports and threshold
   collectCoverageFrom: ['./src/**'],
   // files that should not be counted against the test coverage thresholds
