@@ -129,8 +129,8 @@ export function ClientSideUserContextProvider(
     setEmailForSignIn(params.email);
     router.push('/signin-with-otp');
     sendAnalyticsEvent(AnalyticsEventType.SignUp, {
-      userType: /* istanbul ignore next */
-        invitedBy ? UserType.Player : UserType.Challenger,
+      /* istanbul ignore next */
+      userType: invitedBy ? UserType.Player : UserType.Challenger,
     });
   }
 
