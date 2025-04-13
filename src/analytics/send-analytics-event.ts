@@ -4,6 +4,49 @@ import type { EventParameters } from './event-parameters';
 
 /**
  * Logs an event to analytics.
+ *
+ * @remarks
+ * The arguments sent to analytics correspond to the
+ * `AnalyticsEventType` member provided as the first argument.
+ * For instance, the following invocations will FAIL to
+ * compile and will display warnings in the IDE:
+ *
+ * ```
+ * // Too few arguments
+ * sendAnalyticsEvent();
+ *
+ * // First argument is not a member of AnalyticsEventType
+ * sendAnalyticsEvent('not_a_real_event');
+ *
+ * // Expects second argument
+ * sendAnalyticsEvent(AnalyticsEventType.FormSubmit)
+ *
+ * // Expects only one argument
+ * sendAnalyticsEvent(AnalyticsEventType.SignIn, {});
+ *
+ * // Second argument is missing keys
+ * sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {});
+ *
+ * // Second argument's entries are not of the right type(s)
+ * sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+ *   formId: 1, // a string is expected
+ *   succeeded: null // a boolean is expected
+ * });
+ *
+ * // Second argument has unexpected entries
+ * sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+ *   formId: 'my-form',
+ *   succeeded: true,
+ *   oopsAnExtraKey: ''
+ * });
+ * ```
+ *
+ * To add events:
+ * 1. Add a member to the `AnalyticsEventType` enum.
+ * 2. If the event should take parameters, add an entry to
+ * `EventParameters`.
+ * 3. Update the switch statement in `formatParams` to
+ * format those parameters for Google Analytics.
  */
 export function sendAnalyticsEvent<T extends AnalyticsEventType>(
   ...args: T extends keyof EventParameters ?
