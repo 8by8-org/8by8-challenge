@@ -64,10 +64,6 @@ export function sendAnalyticsEvent<T extends AnalyticsEventType>(
  * Translates event parameters object properties from camelCase (compliant with
  * the 8by8 style guide) into snake_case (to match other event parameters in
  * Google Analytics).
- *
- * @param eventType
- * @param params
- * @returns
  */
 function formatParams<T extends AnalyticsEventType>(
   eventType: T,
