@@ -63,10 +63,9 @@ describe('sendAnalyticsEvent', () => {
 
   it('sends sign_up events to Google Analytics.', () => {
     /*
-      In practice, a user will only sign up as a challenger 
-      or a player, and can become a hybrid-type user by 
-      either taking the challenge as a player or visiting 
-      another user's invite link as a challenger.
+      In practice, a user will only sign up as a challenger or a player, and can 
+      become a hybrid-type user by either taking the challenge as a player or 
+      visiting another user's invite link as a challenger.
     */
     const userTypes = [UserType.Challenger, UserType.Player];
 

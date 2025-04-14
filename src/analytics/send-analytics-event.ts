@@ -1,15 +1,15 @@
 import { sendGAEvent } from '@next/third-parties/google';
 import { AnalyticsEventType } from './analytics-event-type';
+import { camelCaseToSnakeCase } from '@/utils/shared/camel-case-to-snake-case';
 import type { EventParameters } from './event-parameters';
 
 /**
  * Logs an event to analytics.
  *
  * @remarks
- * The arguments sent to analytics correspond to the
- * `AnalyticsEventType` member provided as the first argument.
- * For instance, the following invocations will FAIL to
- * compile and will display warnings in the IDE:
+ * The arguments sent to analytics correspond to the `AnalyticsEventType` member
+ * provided as the first argument. For instance, the following invocations will
+ * FAIL to compile and will display warnings in the IDE:
  *
  * ```
  * // Too few arguments
@@ -43,10 +43,10 @@ import type { EventParameters } from './event-parameters';
  *
  * To add events:
  * 1. Add a member to the `AnalyticsEventType` enum.
- * 2. If the event should take parameters, add an entry to
- * `EventParameters`.
- * 3. Update the switch statement in `formatParams` to
- * format those parameters for Google Analytics.
+ * 2. If the event should take parameters, add an entry to `EventParameters`.
+ * 3. Optionally, update the switch statement in `formatParams` to format those
+ * parameters for Google Analytics. For example, this is necessary to convert
+ * `USState` to `us_state` instead of `u_s_state`.
  */
 export function sendAnalyticsEvent<T extends AnalyticsEventType>(
   ...args: T extends keyof EventParameters ?
@@ -61,9 +61,9 @@ export function sendAnalyticsEvent<T extends AnalyticsEventType>(
 }
 
 /**
- * Translates event parameters object properties from
- * camelCase (compliant with the 8by8 style guide) into
- * snake_case (to match other event parameters in Google Analytics).
+ * Translates event parameters object properties from camelCase (compliant with
+ * the 8by8 style guide) into snake_case (to match other event parameters in
+ * Google Analytics).
  *
  * @param eventType
  * @param params
@@ -76,34 +76,18 @@ function formatParams<T extends AnalyticsEventType>(
   const formattedParams: Record<string, unknown> = {};
 
   switch (eventType) {
-    case AnalyticsEventType.FormSubmit:
-      const formSubmitParams =
-        params as EventParameters[AnalyticsEventType.FormSubmit];
-      formattedParams.form_id = formSubmitParams.formId;
-      formattedParams.form_name = formSubmitParams.formName;
-      formattedParams.succeeded = formSubmitParams.succeeded;
-      formattedParams.invalid_fields = formSubmitParams.invalidFields;
-      break;
-    case AnalyticsEventType.SignUp:
-      const signUpParams = params as EventParameters[AnalyticsEventType.SignUp];
-      formattedParams.user_type = signUpParams.userType;
-      break;
-    case AnalyticsEventType.ShareChallenge:
-      const shareChallengeParams =
-        params as EventParameters[AnalyticsEventType.ShareChallenge];
-      formattedParams.user_type = shareChallengeParams.userType;
-      formattedParams.first_share = shareChallengeParams.firstShare;
-      break;
-    case AnalyticsEventType.GetElectionReminders:
-      const remindersParams =
-        params as EventParameters[AnalyticsEventType.GetElectionReminders];
-      formattedParams.user_type = remindersParams.userType;
-      break;
     case AnalyticsEventType.RegisterToVote:
       const registrationParams =
         params as EventParameters[AnalyticsEventType.RegisterToVote];
       formattedParams.user_type = registrationParams.userType;
       formattedParams.us_state = registrationParams.USState;
+      break;
+    default:
+      if (params) {
+        for (const [key, value] of Object.entries(params)) {
+          formattedParams[camelCaseToSnakeCase(key)] = value;
+        }
+      }
       break;
   }
 
