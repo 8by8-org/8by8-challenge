@@ -3,7 +3,7 @@ import styles from './button.module.scss';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'gradient' | 'inverted';
-  size?: 'lg' | 'sm'|'md';
+  size?: 'lg' | 'sm' | 'md';
   wide?: boolean;
   minwide?: boolean;
   children: React.ReactNode;
