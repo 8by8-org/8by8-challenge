@@ -3,8 +3,9 @@ import styles from './button.module.scss';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'gradient' | 'inverted';
-  size?: 'lg' | 'sm';
+  size?: 'lg' | 'sm' | 'md';
   wide?: boolean;
+  minwide?: boolean;
   children: React.ReactNode;
 }
 
@@ -12,6 +13,7 @@ export function Button({
   variant = 'gradient',
   size = 'lg',
   wide = false,
+  minwide = false,
   children,
   className,
   ...htmlButtonProps
@@ -27,7 +29,7 @@ export function Button({
   }
 
   return (
-      <button className={classNames.join(' ')} {...htmlButtonProps}>
+    <button className={classNames.join(' ')} {...htmlButtonProps}>
       <span>{children}</span>
     </button>
   );

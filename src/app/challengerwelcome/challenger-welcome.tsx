@@ -13,7 +13,7 @@ import stepThree from '../../../public/static/images/pages/challenger-welcome/st
 import stepFour from '../../../public/static/images/pages/challenger-welcome/step-4.png';
 import logo from '../../../public/static/images/shared/8by8-logo.svg';
 import styles from './styles.module.scss';
-import  { Button } from '../../components/utils/button';
+import { Button } from '../../components/utils/button';
 
 export const ChallengerWelcome = isSignedOut(
   wasNotInvited(function ChallengerWelcome() {
@@ -54,12 +54,12 @@ export const ChallengerWelcome = isSignedOut(
 
           <Button
             type="button"
-            className={styles.get_started_btn}
             onClick={() => router.push('/signup')}
+            size="md"
+            minwide={true}
           >
             Get Started
           </Button>
-
 
           <p className={styles.signin_line}>
             Already have an account? <Link href="/signin">Sign in</Link>

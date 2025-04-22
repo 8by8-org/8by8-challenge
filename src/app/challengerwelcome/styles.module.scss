@@ -1,9 +1,8 @@
-@use '../../styles/partials';
+@use '../../styles/partials' as *;
 
 .get_started_btn {
-  @extend .btn_gradient;
-  @extend .btn_lg;
   width: 70%;
+  margin: 30px 0px;
 }
 
 .signin_line {
@@ -13,7 +12,7 @@
   a {
     padding-left: 2px;
     @extend .link;
-    font-size: partials.$font-size-xxs;
+    font-size: $font-size-xxs;  /* Fixed: removed partials. prefix */
   }
 }
 
@@ -22,19 +21,19 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  
   .background {
     width: 100%;
     height: 300px;
   }
-
+  
   .container {
     height: 0;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    
     .logo {
       position: relative;
       bottom: 170px;
@@ -48,13 +47,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  
   .content {
     margin-top: 20px;
     text-align: left;
     @extend .b2;
   }
-
+  
   .teal_link {
     @extend .link;
     @extend .b5;
@@ -65,32 +64,62 @@
 }
 
 .content_3 {
-  background-color: partials.$color-white;
-  color: partials.$color-black-text;
+  background-color: $color-white;  /* Fixed: removed partials. prefix */
+  color: $color-black-text;  /* Fixed: removed partials. prefix */
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: left;
   padding: 30px 30px 40px;
-
+  
   h2 {
     margin-bottom: 24px;
     line-height: normal;
     letter-spacing: 1.08px;
   }
-
+  
   .step_header {
     align-self: flex-start;
     line-height: normal;
     letter-spacing: 0.72px;
   }
-
+  
   .step_text {
     @extend .b2;
     letter-spacing: 0.36px;
   }
-
+  
   .image {
     margin: 20px 0px;
   }
 }
+
+.lg {
+  font-size: $font-size-lg;
+  height: 64px;
+  border-radius: 40px;
+  border-width: 4px;
+}
+
+.wide {
+  width: 100%;
+}
+
+.minwide {
+  width:75%
+}
+
+.md {
+  font-size: $font-size-lg;
+  height: 64px;
+  border-radius: 20px;
+  border-width: 4px;
+  width:350px;
+}
+
+
+.sm {
+  font-size: $font-size-md;
+  padding: 4px 14px;
+}
+

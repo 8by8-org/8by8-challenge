@@ -21,7 +21,6 @@ import socialMediaPostImage2 from '../../../public/static/images/pages/share/pos
 import styles from './styles.module.scss';
 import { createShareLink } from './create-share-link';
 
-
 interface ShareProps {
   hideShareButton?: boolean;
 }
