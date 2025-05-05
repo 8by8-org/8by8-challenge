@@ -35,6 +35,13 @@ const config = {
     '<rootDir>/src/app/register/completed/page.tsx',
     // pledge to vote form is heavily reliant on the content rendered in its IFrame from Rock the Vote
     '<rootDir>/src/app/reminders/pledge-to-vote-form/',
+    // analytics mounts scripts which are not mounted or executed by default in the test environment
+    '<rootDir>/src/analytics/analytics-provider.tsx',
+    // ignore pages that export metadata, istanbul ignore next is not working properly on these exported objects
+    '<rootDir>/src/app/tos/page.tsx',
+    '<rootDir>/src/app/why8by8/page.tsx',
+    '<rootDir>/src/app/privacy/page.tsx',
+    '<rootDir>/src/app/not-found.tsx',
   ],
   //require 100% code coverage for the tests to pass
   coverageThreshold: {

@@ -1,11 +1,11 @@
 'use client';
 import { useEffect } from 'react';
-import { isSignedOut } from '@/components/guards/is-signed-out';
-import { wasNotInvited } from '@/components/guards/was-not-invited';
-import { PageContainer } from '@/components/utils/page-container';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { isSignedOut } from '@/components/guards/is-signed-out';
+import { wasNotInvited } from '@/components/guards/was-not-invited';
+import { PageContainer } from '@/components/utils/page-container';
 import top from '../../../public/static/images/pages/challenger-welcome/black-curve-lg.png';
 import stepOne from '../../../public/static/images/pages/challenger-welcome/step-1.png';
 import stepTwo from '../../../public/static/images/pages/challenger-welcome/step-2.png';

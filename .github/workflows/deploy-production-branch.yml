@@ -46,6 +46,7 @@ jobs:
           echo "VOTER_REGISTRATION_REPO_ENCRYPTION_KEY=${{ secrets.VOTER_REGISTRATION_REPO_ENCRYPTION_KEY }}" >> $GITHUB_ENV
           echo "GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> $GITHUB_ENV
           echo "CRYPTO_KEY_COOKIES=${{ secrets.CRYPTO_KEY_COOKIES }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=${{ secrets.GOOGLE_ANALYTICS_ID }}" >> $GITHUB_ENV
       - run: vercel build --prod --token=$VERCEL_TOKEN
       - run: node scripts/create-or-update-vercel-environment-variables.js production
       - run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN

@@ -10,6 +10,8 @@ const ExternalSources = {
   RockyAPIAssets: 'https://s3.amazonaws.com/rocky-assets/',
   Cloudflare: 'https://challenges.cloudflare.com/',
   VercelTools: 'https://vercel.live/',
+  GoogleTagManager: 'https://www.googletagmanager.com/',
+  GoogleAnalytics: 'https://www.google-analytics.com/',
 };
 
 /**
@@ -42,7 +44,11 @@ export function createCSP() {
     },
     {
       directive: 'connect-src',
-      values: [KeywordValues.Self, getSupabaseRealtimeSocketURL()],
+      values: [
+        KeywordValues.Self,
+        getSupabaseRealtimeSocketURL(),
+        ExternalSources.GoogleAnalytics,
+      ],
     },
     {
       directive: 'style-src',
@@ -66,7 +72,6 @@ export function createCSP() {
     },
     {
       directive: 'form-action',
-      // will this allow the election reminders form to be submitted?
       values: [KeywordValues.Self],
     },
     {
@@ -99,6 +104,7 @@ function getAllowedScriptSources() {
     ExternalSources.RockyAPIAssets,
     ExternalSources.Cloudflare,
     ExternalSources.VercelTools,
+    ExternalSources.GoogleTagManager,
   ];
 
   // 'unsafe-eval' is required by Next.js when running the dev server

@@ -4,6 +4,7 @@ import { SubFormTemplate, FormFactory } from 'fully-formed';
 
 class NameTemplate extends SubFormTemplate {
   public readonly name = 'names';
+  public readonly id = 'voter-registration/names';
   public readonly fields = [new YourNameForm(), new PreviousNameForm()];
 }
 

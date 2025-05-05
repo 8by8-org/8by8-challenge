@@ -1,6 +1,12 @@
 import dynamic from 'next/dynamic';
 import { serverContainer } from '@/services/server/container';
 import { SERVER_SERVICE_KEYS } from '@/services/server/keys';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: `${HOME_PAGE_TITLE} | Register to Vote`,
+};
 
 interface OtherDetailsProps {
   searchParams: {

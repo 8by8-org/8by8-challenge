@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TermsOfServicePage renders the privacy policy page unchanged. 1`] = `
+exports[`TermsOfServicePage renders the terms of service page unchanged. 1`] = `
 <div>
   <div
     class="outer_container"

@@ -1,6 +1,12 @@
 import Link from 'next/link';
 import { PageContainer } from '@/components/utils/page-container';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
+import type { Metadata } from 'next';
 import styles from './styles.module.scss';
+
+export const metadata: Metadata = {
+  title: `${HOME_PAGE_TITLE} | Terms of Service`,
+};
 
 export default function TermsOfServicePage() {
   return (
@@ -9,7 +15,7 @@ export default function TermsOfServicePage() {
         <header>
           <h1>Terms of Service</h1>
           <p>
-            <strong className="b3">Effective Date:</strong> 10/1/2024
+            <strong className="b3">Effective Date:</strong> 4/9/2025
           </p>
         </header>
         <ol>
@@ -111,12 +117,13 @@ export default function TermsOfServicePage() {
             Third-Party Services
             <p>
               We use third-party services, including but not limited to Rock the
-              Vote for voter registration and reminders, and Supabase for
-              authentication and database management. By using these third-party
-              services through our Service, you agree to comply with their terms
-              and conditions. We are not responsible for the availability,
-              accuracy, or content of third-party services, nor do we endorse or
-              assume liability for any third-party services.
+              Vote for voter registration and reminders, Supabase for
+              authentication and database management, and Google for address
+              validation and analytics. By using these third-party services
+              through our Service, you agree to comply with their terms and
+              conditions. We are not responsible for the availability, accuracy,
+              or content of third-party services, nor do we endorse or assume
+              liability for any third-party services.
             </p>
           </li>
           <li>

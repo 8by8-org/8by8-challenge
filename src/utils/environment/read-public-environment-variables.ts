@@ -24,5 +24,9 @@ export function readPublicEnvironmentVariables() {
           'Could not find environment variable NEXT_PUBLIC_SUPABASE_ANON_KEY.',
       })
       .parse(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+    NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: z
+      .string()
+      .optional()
+      .parse(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID),
   };
 }

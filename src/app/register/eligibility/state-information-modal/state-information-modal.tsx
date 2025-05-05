@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Modal } from '@/components/utils/modal';
 import { Button } from '@/components/utils/button';
 import { VoterRegistrationPathnames } from '../../constants/voter-registration-pathnames';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
 import type { Dispatch, SetStateAction } from 'react';
 import styles from './styles.module.scss';
 
@@ -11,6 +13,8 @@ interface StateInformationModalProps {
   stateAbbr: string;
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  parentFormId: string; // for analytics
+  parentFormName: string; // for analytics
 }
 
 /**
@@ -24,9 +28,20 @@ export function StateInformationModal({
   stateAbbr,
   showModal,
   setShowModal,
+  parentFormId,
+  parentFormName,
 }: StateInformationModalProps) {
   const router = useRouter();
   const closeModal = () => setShowModal(false);
+
+  const keepGoing = () => {
+    router.push(VoterRegistrationPathnames.NAMES);
+    sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+      formId: parentFormId,
+      formName: parentFormName,
+      succeeded: true,
+    });
+  };
 
   const state =
     stateAbbr === 'ND' ? 'North Dakota'
@@ -126,9 +141,7 @@ export function StateInformationModal({
       <div className={styles.buttons_container}>
         <Button
           type="button"
-          onClick={() => {
-            router.push(VoterRegistrationPathnames.NAMES);
-          }}
+          onClick={keepGoing}
           className={styles.button}
           variant="inverted"
           size="sm"

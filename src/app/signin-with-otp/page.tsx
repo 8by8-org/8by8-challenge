@@ -16,11 +16,15 @@ import { isSignedOut } from '@/components/guards/is-signed-out';
 import { useCountdown } from '@/hooks/use-countdown';
 import { Button } from '@/components/utils/button';
 import { isErrorWithMessage } from '@/utils/shared/is-error-with-message';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
 import styles from './styles.module.scss';
 
 export default isSignedOut(
   sentOTP(function SignInWithOTP() {
     const form = useForm(new SignInWithOTPForm());
+    const formId = 'signin-with-otp';
+    const formName = 'signinWithOTP';
     const userContext = useContextSafely(UserContext, 'SignInWithOTP');
     const { showAlert } = useContextSafely(AlertsContext, 'SignInWithOTP');
     const { countdown, restartCountdown } = useCountdown(60);
@@ -33,12 +37,23 @@ export default isSignedOut(
 
       if (!ValidityUtils.isValid(form)) {
         focusOnElementById(form.fields.otp.id);
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId,
+          formName,
+          succeeded: false,
+          invalidFields: [form.fields.otp.id],
+        });
         return;
       }
 
       try {
         setIsLoading(true);
         await userContext.signInWithOTP(form.state.value);
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId,
+          formName,
+          succeeded: true,
+        });
       } catch (e) {
         setIsLoading(false);
         showAlert(
@@ -47,6 +62,11 @@ export default isSignedOut(
           : 'There was a problem signing in. Please try again.',
           'error',
         );
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId,
+          formName,
+          succeeded: false,
+        });
       }
     };
 
@@ -73,7 +93,7 @@ export default isSignedOut(
     return (
       <PageContainer>
         {isLoading && <LoadingWheel />}
-        <form onSubmit={onSubmit} noValidate name="signInWithOTPForm">
+        <form id={formId} name={formName} onSubmit={onSubmit} noValidate>
           <div className={styles.title_and_fields_container}>
             <div className={styles.hero}>
               <h1>
