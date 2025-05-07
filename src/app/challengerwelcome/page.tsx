@@ -1,5 +1,6 @@
 import { ChallengerWelcome } from './challenger-welcome';
 import { SearchParams } from '@/constants/search-params';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
 import type { Metadata } from 'next';
 
 export function generateMetadata({ searchParams }: any): Metadata {
@@ -8,6 +9,7 @@ export function generateMetadata({ searchParams }: any): Metadata {
     searchParams[SearchParams.WonTheChallenge] === 'true';
 
   const metadata: Metadata = {
+    title: `${HOME_PAGE_TITLE} | Challenger Welcome`,
     openGraph: {
       images: {
         url:

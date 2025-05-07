@@ -18,6 +18,9 @@ import { Label } from '@/components/form-components/label';
 import { LoadingWheel } from '@/components/utils/loading-wheel';
 import { getFirstNonValidInputId } from './get-first-non-valid-input-id';
 import { focusOnElementById } from '@/utils/client/focus-on-element-by-id';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
+import { getInvalidFieldNames } from '@/utils/client/get-invalid-field-names';
 import type { FormEventHandler } from 'react';
 import type { PoliticalPartiesAndOtherDetails } from '@/model/types/political-parties-and-other-details';
 import styles from './styles.module.scss';
@@ -32,7 +35,7 @@ export const OtherDetails = hasNotCompletedAction(
       VoterRegistrationContext,
       'OtherDetails',
     );
-    const form = voterRegistrationForm.fields.otherDetails;
+    const otherDetailsForm = voterRegistrationForm.fields.otherDetails;
     const idFieldDescriptionId = useId();
     const { registerToVote } = useContextSafely(UserContext, 'OtherDetails');
     const { showAlert } = useContextSafely(AlertsContext, 'OtherDetails');
@@ -43,28 +46,48 @@ export const OtherDetails = hasNotCompletedAction(
       e.preventDefault();
       if (isSubmitting) return;
 
-      form.setSubmitted();
+      otherDetailsForm.setSubmitted();
 
-      if (!ValidityUtils.isValid(form)) {
-        const firstNonValidInputId = getFirstNonValidInputId(form);
+      if (!ValidityUtils.isValid(otherDetailsForm)) {
+        const firstNonValidInputId = getFirstNonValidInputId(otherDetailsForm);
         firstNonValidInputId && focusOnElementById(firstNonValidInputId);
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId: otherDetailsForm.id,
+          formName: otherDetailsForm.name,
+          succeeded: false,
+          invalidFields: getInvalidFieldNames(otherDetailsForm),
+        });
         return;
       }
 
       try {
         setIsSubmitting(true);
         await registerToVote(voterRegistrationForm.state.value);
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId: otherDetailsForm.id,
+          formName: otherDetailsForm.name,
+          succeeded: true,
+        });
       } catch (e) {
         setIsSubmitting(false);
         showAlert('Something went wrong. Please try again.', 'error');
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId: otherDetailsForm.id,
+          formName: otherDetailsForm.name,
+          succeeded: false,
+        });
       }
     };
 
     return (
-      <form onSubmit={onSubmit}>
+      <form
+        id={otherDetailsForm.id}
+        name={otherDetailsForm.name}
+        onSubmit={onSubmit}
+      >
         <h2 className="mb_sm">Other Details</h2>
         <Select
-          field={form.fields.party}
+          field={otherDetailsForm.fields.party}
           label="Political party*"
           options={politicalParties.map(party => ({
             text: party,
@@ -73,9 +96,9 @@ export const OtherDetails = hasNotCompletedAction(
           className={styles.select}
           aria-required
         />
-        <ExcludableContent excludableField={form.fields.otherParty}>
+        <ExcludableContent excludableField={otherDetailsForm.fields.otherParty}>
           <InputGroup
-            field={form.fields.otherParty}
+            field={otherDetailsForm.fields.otherParty}
             type="text"
             labelVariant="floating"
             labelContent="If other, please specify*"
@@ -84,7 +107,7 @@ export const OtherDetails = hasNotCompletedAction(
           />
         </ExcludableContent>
         <Select
-          field={form.fields.race}
+          field={otherDetailsForm.fields.race}
           label="Race*"
           options={raceOptions.map(value => {
             return {
@@ -109,19 +132,21 @@ export const OtherDetails = hasNotCompletedAction(
           aria-required
         />
         <Checkbox
-          checked={useValue(form.fields.hasStateLicenseOrID)}
+          checked={useValue(otherDetailsForm.fields.hasStateLicenseOrID)}
           onChange={e =>
-            form.fields.hasStateLicenseOrID.setValue(e.target.checked)
+            otherDetailsForm.fields.hasStateLicenseOrID.setValue(
+              e.target.checked,
+            )
           }
-          name={form.fields.hasStateLicenseOrID.name}
+          name={otherDetailsForm.fields.hasStateLicenseOrID.name}
           labelContent="I have a state-issued driver's license or ID card"
           containerClassName={styles.mb_16}
         />
-        <Label field={form.fields.idNumber} variant="floating">
+        <Label field={otherDetailsForm.fields.idNumber} variant="floating">
           ID number*
         </Label>
         <Input
-          field={form.fields.idNumber}
+          field={otherDetailsForm.fields.idNumber}
           type="text"
           aria-required
           aria-describedby={idFieldDescriptionId}
@@ -130,20 +155,22 @@ export const OtherDetails = hasNotCompletedAction(
           {idNumberMessage}
         </p>
         <Checkbox
-          checked={useValue(form.fields.receiveEmailsFromRTV)}
+          checked={useValue(otherDetailsForm.fields.receiveEmailsFromRTV)}
           onChange={e =>
-            form.fields.receiveEmailsFromRTV.setValue(e.target.checked)
+            otherDetailsForm.fields.receiveEmailsFromRTV.setValue(
+              e.target.checked,
+            )
           }
-          name={form.fields.receiveEmailsFromRTV.name}
+          name={otherDetailsForm.fields.receiveEmailsFromRTV.name}
           labelContent="I'd like to receive emails from Rock the Vote"
           containerClassName={styles.mb_16}
         />
         <Checkbox
-          checked={useValue(form.fields.receiveSMSFromRTV)}
+          checked={useValue(otherDetailsForm.fields.receiveSMSFromRTV)}
           onChange={e =>
-            form.fields.receiveSMSFromRTV.setValue(e.target.checked)
+            otherDetailsForm.fields.receiveSMSFromRTV.setValue(e.target.checked)
           }
-          name={form.fields.receiveSMSFromRTV.name}
+          name={otherDetailsForm.fields.receiveSMSFromRTV.name}
           labelContent="I'd like to receive SMS messages from Rock the Vote"
           containerClassName="mb_md"
         />

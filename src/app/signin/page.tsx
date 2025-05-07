@@ -17,10 +17,15 @@ import { focusOnElementById } from '@/utils/client/focus-on-element-by-id';
 import { FormInvalidError } from '@/utils/client/form-invalid-error';
 import { LoadingWheel } from '@/components/utils/loading-wheel';
 import { isErrorWithMessage } from '@/utils/shared/is-error-with-message';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
+import { getInvalidFieldNames } from '@/utils/client/get-invalid-field-names';
 import styles from './styles.module.scss';
 
 export default isSignedOut(function SignIn() {
   const signInForm = useForm(new SignInForm());
+  const formId = 'signin-form';
+  const formName = 'signinForm';
   const { sendOTPToEmail } = useContextSafely(UserContext, 'SignIn');
   const { showAlert } = useContextSafely(AlertsContext, 'SignIn');
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +39,11 @@ export default isSignedOut(function SignIn() {
     try {
       const formValue = await waitForPendingValidators(signInForm);
       await sendOTPToEmail(formValue);
+      sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+        formId,
+        formName,
+        succeeded: true,
+      });
     } catch (e) {
       setIsLoading(false);
 
@@ -43,6 +53,12 @@ export default isSignedOut(function SignIn() {
         } else {
           scrollToElementById(signInForm.fields.captchaToken.id);
         }
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId,
+          formName,
+          succeeded: false,
+          invalidFields: getInvalidFieldNames(signInForm),
+        });
       } else {
         showAlert(
           isErrorWithMessage(e) ?
@@ -50,6 +66,11 @@ export default isSignedOut(function SignIn() {
           : 'Something went wrong. Please try again.',
           'error',
         );
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId,
+          formName,
+          succeeded: false,
+        });
       }
     }
   };
@@ -57,7 +78,7 @@ export default isSignedOut(function SignIn() {
   return (
     <PageContainer>
       {isLoading && <LoadingWheel />}
-      <form onSubmit={onSubmit} noValidate name="signInForm">
+      <form id={formId} name={formName} onSubmit={onSubmit} noValidate>
         <div className={styles.title_and_fields_container}>
           <div className={styles.hero}>
             <h1>

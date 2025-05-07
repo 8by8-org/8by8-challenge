@@ -41,6 +41,7 @@ async function createOrUpdateEnvironmentVariables() {
     'GOOGLE_MAPS_API_KEY',
     'VOTER_REGISTRATION_REPO_ENCRYPTION_KEY',
     'CRYPTO_KEY_COOKIES',
+    'NEXT_PUBLIC_GOOGLE_ANALYTICS_ID',
   ];
 
   for (const key of environmentVariableKeys) {

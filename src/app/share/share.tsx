@@ -2,14 +2,17 @@
 import { isSignedIn } from '@/components/guards/is-signed-in';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { useContextSafely } from '@/hooks/use-context-safely';
 import { UserContext } from '@/contexts/user-context';
 import { AlertsContext } from '@/contexts/alerts-context';
-import Image from 'next/image';
 import { PageContainer } from '@/components/utils/page-container';
 import { LoadingWheel } from '@/components/utils/loading-wheel';
 import { Modal } from '@/components/utils/modal';
 import { Toast, useToast } from '@/components/utils/toast';
+import { createShareLink } from './create-share-link';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
 import copyLinkIcon from '../../../public/static/images/pages/share/copy-link.svg';
 import imagesIcon from '../../../public/static/images/pages/share/images-icon.svg';
 import backArrow from '../../../public/static/images/pages/share/back-icon.svg';
@@ -19,7 +22,6 @@ import socialMediaPostImage0 from '../../../public/static/images/pages/share/pos
 import socialMediaPostImage1 from '../../../public/static/images/pages/share/post-image-1.png';
 import socialMediaPostImage2 from '../../../public/static/images/pages/share/post-image-2.png';
 import styles from './styles.module.scss';
-import { createShareLink } from './create-share-link';
 
 interface ShareProps {
   hideShareButton?: boolean;
@@ -42,6 +44,9 @@ export const Share = isSignedIn(function Share({
       return;
     }
 
+    // firstShare is sent to analytics as an event parameter.
+    let firstShare = !user?.completedActions.sharedChallenge;
+
     if (!user?.completedActions.sharedChallenge) {
       setIsLoading(true);
       try {
@@ -58,6 +63,10 @@ export const Share = isSignedIn(function Share({
 
     navigator.clipboard.writeText(shareLink);
     showToast('Link copied!');
+    sendAnalyticsEvent(AnalyticsEventType.ShareChallenge, {
+      userType: user!.type,
+      firstShare,
+    });
   };
 
   const canShare =
@@ -78,6 +87,9 @@ export const Share = isSignedIn(function Share({
       return;
     }
 
+    // firstShare is sent to analytics as an event parameter.
+    let firstShare = !user?.completedActions.sharedChallenge;
+
     if (!user?.completedActions.sharedChallenge) {
       setIsLoading(true);
       try {
@@ -95,6 +107,10 @@ export const Share = isSignedIn(function Share({
     try {
       if (canShare) {
         await navigator.share(shareData);
+        sendAnalyticsEvent(AnalyticsEventType.ShareChallenge, {
+          userType: user!.type,
+          firstShare,
+        });
       }
     } catch (e) {
       console.error(e);

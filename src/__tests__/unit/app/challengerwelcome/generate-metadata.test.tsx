@@ -17,6 +17,7 @@ describe('generateMetadata', () => {
           width: 4320,
         },
       },
+      title: expect.any(String),
     });
   });
 
@@ -33,6 +34,7 @@ describe('generateMetadata', () => {
           width: 1337,
         },
       },
+      title: expect.any(String),
     });
   });
 });

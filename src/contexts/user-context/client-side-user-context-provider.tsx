@@ -14,6 +14,8 @@ import { clearAllPersistentFormElements, ValueOf } from 'fully-formed';
 import { VoterRegistrationForm } from '@/app/register/voter-registration-form';
 import { UserType } from '@/model/enums/user-type';
 import { createCSRFHeader } from '@/utils/csrf/create-csrf-header';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
 import type { User } from '@/model/types/user';
 import type { ChallengerData } from '@/model/types/challenger-data';
 import type { RealtimeChannel } from '@supabase/supabase-js';
@@ -126,6 +128,11 @@ export function ClientSideUserContextProvider(
 
     setEmailForSignIn(params.email);
     router.push('/signin-with-otp');
+
+    /* istanbul ignore next */
+    sendAnalyticsEvent(AnalyticsEventType.SignUp, {
+      userType: invitedBy ? UserType.Player : UserType.Challenger,
+    });
   }
 
   async function sendOTPToEmail(params: SendOTPToEmailParams) {
@@ -181,6 +188,7 @@ export function ClientSideUserContextProvider(
     const data = await response.json();
     setUser(data.user as User);
     setInvitedBy(data.invitedBy as ChallengerData);
+    sendAnalyticsEvent(AnalyticsEventType.SignIn);
   }
 
   async function signOut() {
@@ -214,6 +222,10 @@ export function ClientSideUserContextProvider(
 
     if (data.user.uid === user?.uid) {
       setUser(data.user as User);
+
+      sendAnalyticsEvent(AnalyticsEventType.GetElectionReminders, {
+        userType: user.type,
+      });
     }
   }
 
@@ -233,6 +245,11 @@ export function ClientSideUserContextProvider(
 
     if (data.user.uid === user?.uid) {
       setUser(data.user as User);
+      /*
+        Analytics events for this action are sent from the
+        share component (src/app/share/share.tsx) for 
+        ease of setting the firstShare event parameter.
+      */
     }
   }
 
@@ -255,6 +272,10 @@ export function ClientSideUserContextProvider(
 
     if (data.user.uid === user?.uid) {
       setUser(data.user as User);
+      sendAnalyticsEvent(AnalyticsEventType.RegisterToVote, {
+        userType: user.type,
+        USState: formData.addresses.homeAddress.state,
+      });
     }
   }
 
@@ -280,6 +301,7 @@ export function ClientSideUserContextProvider(
 
     if (data.user.uid === user?.uid) {
       setUser(data.user as User);
+      sendAnalyticsEvent(AnalyticsEventType.PlayerBecameChallenger);
     }
   }
 
@@ -316,7 +338,6 @@ export function ClientSideUserContextProvider(
         signOut,
         restartChallenge,
         shareChallenge,
-
         registerToVote,
         takeTheChallenge,
       }}
