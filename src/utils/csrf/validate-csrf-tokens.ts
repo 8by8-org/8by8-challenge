@@ -12,7 +12,7 @@ import type { NextRequest } from 'next/server';
  * ```typescript
  * import { validateCSRFToken } from './csrf';
  * import { NextRequest } from 'next/server';
- *
+ * 
  * export function middleware(request: NextRequest) {
  *   if (!validateCSRFToken(request)) {
  *     return new Response("Forbidden", { status: 403 });
