@@ -55,8 +55,7 @@ export const ChallengerWelcome = isSignedOut(
           <Button
             type="button"
             onClick={() => router.push('/signup')}
-            size="md"
-            minwide={true}
+            className={styles.get_started_btn}
           >
             Get Started
           </Button>

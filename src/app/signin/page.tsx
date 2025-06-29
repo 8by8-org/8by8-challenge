@@ -85,7 +85,7 @@ export default isSignedOut(function SignIn() {
           <Turnstile field={signInForm.fields.captchaToken} />
         </div>
         <div className={styles.submit_btn_container}>
-          <Button type="submit" disabled={isLoading} size="lg" wide={true}>
+          <Button type="submit" disabled={isLoading} size="lg" wide>
             Sign in
           </Button>
         </div>

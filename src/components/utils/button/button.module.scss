@@ -13,31 +13,12 @@
   border-radius: 40px;
   border-width: 4px;
   border-color: $color-black-8by8;
-  margin: 8px; 
+  margin: 4px; 
+  box-shadow: 0 0 0 4px $color-white;
   &:disabled {
     opacity: 0.6;
   }
 }
-
-// use padding in the parent css instead of the margin 
-
-@mixin -outline {
-  &::after {
-    content: '';
-    position: relative;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-    box-sizing: border-box;
-  }
-}
-
-@mixin -outline {
-  box-shadow: 0 0 0 4px $color-white;
-  border-radius: 40px;
-}
-
 
 .button_wrapper {
   padding: 4px;
@@ -56,11 +37,8 @@
   }
 }
 
-
-
 .gradient {
   @include -base;
-  @include -outline;
   background: $gradient-yellow-teal;
   color: $color-black-8by8;
 }
@@ -68,7 +46,6 @@
 .inverted {
   @include -base;
   @include -gradient-text;
-  @include -outline;
   background: $color-black-8by8;
 }
 
@@ -79,14 +56,6 @@
   border-width: 4px;
 }
 
-.md {
-  font-size: $font-size-lg;
-  height: 64px;
-  border-radius: 40px;
-  border-width: 4px;
-  width:240px; 
-}
-
 .sm {
   font-size: $font-size-md;
   padding: 4px 14px;
@@ -94,8 +63,4 @@
 
 .wide {
   width: 100%;
-}
-
-.minwide {
-  width:75%;
 }

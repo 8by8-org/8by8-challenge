@@ -118,7 +118,7 @@ export default isSignedOut(function SignUp() {
           </p>
         </div>
         <div className={styles.submit_btn_container}>
-          <Button type="submit" size="lg" wide={true} disabled={isLoading}>
+          <Button type="submit" size="lg" wide disabled={isLoading}>
             Sign Up
           </Button>
         </div>

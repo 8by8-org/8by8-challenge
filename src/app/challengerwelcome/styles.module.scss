@@ -2,7 +2,8 @@
 
 .get_started_btn {
   width: 70%;
-  margin: 30px 0px;
+  margin: 30px 0px  !important;
+  
 }
 
 .signin_line {
@@ -12,7 +13,7 @@
   a {
     padding-left: 2px;
     @extend .link;
-    font-size: $font-size-xxs;  /* Fixed: removed partials. prefix */
+    font-size: $font-size-xxs;  
   }
 }
 
@@ -64,8 +65,8 @@
 }
 
 .content_3 {
-  background-color: $color-white;  /* Fixed: removed partials. prefix */
-  color: $color-black-text;  /* Fixed: removed partials. prefix */
+  background-color: $color-white;  
+  color: $color-black-text;  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,33 +94,3 @@
     margin: 20px 0px;
   }
 }
-
-.lg {
-  font-size: $font-size-lg;
-  height: 64px;
-  border-radius: 40px;
-  border-width: 4px;
-}
-
-.wide {
-  width: 100%;
-}
-
-.minwide {
-  width:75%
-}
-
-.md {
-  font-size: $font-size-lg;
-  height: 64px;
-  border-radius: 20px;
-  border-width: 4px;
-  width:350px;
-}
-
-
-.sm {
-  font-size: $font-size-md;
-  padding: 4px 14px;
-}
-

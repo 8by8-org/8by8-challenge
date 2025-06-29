@@ -69,3 +69,25 @@ export const WideInvertedSmall: Story = {
     </GlobalStylesProvider>
   ),
 };
+
+export const DoubleButtons: Story = {
+  render: () => (
+    <GlobalStylesProvider>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'blue',
+          padding: 18,
+        }}
+      >
+        <Button variant="inverted" size="sm">
+          Button
+        </Button>
+        <Button variant="inverted" size="sm">
+          Button
+        </Button>
+      </div>
+    </GlobalStylesProvider>
+  ),
+};
