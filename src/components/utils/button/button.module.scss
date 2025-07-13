@@ -1,5 +1,8 @@
 @use '../../../styles/partials' as *;
 
+
+@layer {
+
 @mixin -base {
   position: relative;
   display: inline-block;
@@ -20,9 +23,7 @@
   }
 }
 
-.button_wrapper {
-  padding: 4px;
-}
+
 
 @mixin -gradient-text {
   :first-child {
@@ -63,4 +64,7 @@
 
 .wide {
   width: 100%;
+}
+
+
 }

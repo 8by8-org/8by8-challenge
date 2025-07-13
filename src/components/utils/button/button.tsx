@@ -5,7 +5,6 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'gradient' | 'inverted';
   size?: 'lg' | 'sm';
   wide?: boolean;
-  minwide?: boolean;
   children: React.ReactNode;
 }
 
