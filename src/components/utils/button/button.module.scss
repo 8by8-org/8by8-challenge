@@ -23,8 +23,6 @@
   }
 }
 
-
-
 @mixin -gradient-text {
   :first-child {
     background: $gradient-yellow-teal;
@@ -64,7 +62,5 @@
 
 .wide {
   width: 100%;
-}
-
-
+ }
 }
