@@ -14,6 +14,7 @@ import { ZipCodeValidator } from '../utils/zip-code-validator';
 
 class EligibilityTemplate extends SubFormTemplate {
   public readonly name = 'eligibility';
+  public readonly id = 'voter-registration/eligibility';
   public readonly autoTrim = {
     include: ['email', 'zip'],
   };

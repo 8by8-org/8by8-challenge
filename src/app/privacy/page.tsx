@@ -1,5 +1,11 @@
 import { PageContainer } from '@/components/utils/page-container';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
+import type { Metadata } from 'next';
 import styles from './styles.module.scss';
+
+export const metadata: Metadata = {
+  title: `${HOME_PAGE_TITLE} | Privacy Policy`,
+};
 
 export default function PrivacyPolicyPage() {
   return (
@@ -8,7 +14,7 @@ export default function PrivacyPolicyPage() {
         <header>
           <h1>Privacy Policy</h1>
           <p>
-            <strong className="b3">Effective Date:</strong> 10/1/2024
+            <strong className="b3">Effective Date:</strong> 4/9/2025
           </p>
         </header>
         <ol>
@@ -58,7 +64,8 @@ export default function PrivacyPolicyPage() {
                 For user engagement tracking: We collect data on user actions
                 within the application, such as registering to vote, signing up
                 for election reminders, and inviting friends to participate.
-                This data is used to award badges and track challenge progress.
+                This data is used to award badges, to track challenge progress,
+                and to compile reports on application usage.
               </li>
               <li>
                 To assist you with voter registration and sign up for election
@@ -87,11 +94,12 @@ export default function PrivacyPolicyPage() {
             <ul>
               <li>
                 With Service Providers: Our application integrates with
-                third-party services, including Rock the Vote and Supabase, to
-                facilitate voter registration, election reminders, user
-                authentication, and database management. These services may
-                collect, process, and store your personal information in
-                accordance with their respective privacy policies.
+                third-party services, including Rock the Vote, Supabase, and
+                Google to facilitate voter registration, election reminders,
+                user authentication, database management, address validation,
+                and analytics. These services may collect, process, and store
+                your personal information in accordance with their respective
+                privacy policies.
               </li>
               <li>
                 Legal Compliance: We may disclose your information if required
@@ -117,8 +125,8 @@ export default function PrivacyPolicyPage() {
                 and settings.
               </li>
               <li>
-                Analytics: We use cookies to track user behavior and gather data
-                about how the application is used.
+                Analytics: We use Google Analyics to track user behavior and
+                gather data about how the application is used.
               </li>
             </ul>
             <p>
@@ -130,11 +138,12 @@ export default function PrivacyPolicyPage() {
             Third-Party Services
             <p>
               Our application integrates with third-party services, including
-              Rock the Vote and Supabase, to facilitate voter registration,
-              election reminders, user authentication, and database management.
-              These services may also collect, process, and store user data. We
-              are not responsible for the privacy practices of these third-party
-              services, and we encourage you to review their privacy policies.
+              Rock the Vote, Supabase, and Google to facilitate voter
+              registration, election reminders, user authentication, database
+              management, address validation, and analytics. These services may
+              also collect, process, and store user data. We are not responsible
+              for the privacy practices of these third-party services, and we
+              encourage you to review their privacy policies.
             </p>
           </li>
           <li>

@@ -13,7 +13,13 @@ import pieChart from '../../../public/static/images/pages/why-8by8/graphics/pie-
 import blurBlob from '../../../public/static/images/pages/why-8by8/shapes/yellow-blur-1.png';
 import tealTop from '../../../public/static/images/pages/why-8by8/shapes/teal-curve-2.png';
 import tealWave from '../../../public/static/images/pages/why-8by8/shapes/teal-curve-3.png';
+import { HOME_PAGE_TITLE } from '@/constants/metadata';
+import type { Metadata } from 'next';
 import styles from './styles.module.scss';
+
+export const metadata: Metadata = {
+  title: `${HOME_PAGE_TITLE} | Why 8by8`,
+};
 
 export default function Why8by8() {
   return (

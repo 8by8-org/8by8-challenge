@@ -6,6 +6,9 @@ import { Button } from '@/components/utils/button';
 import zipState from 'zip-state';
 import { getPreregistrationInfo } from '../utils/get-preregistration-info';
 import { VoterRegistrationPathnames } from '../../constants/voter-registration-pathnames';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
+import { EligibilityForm } from '../eligibility-form';
 import type { Dispatch, SetStateAction } from 'react';
 import styles from './styles.module.scss';
 
@@ -13,6 +16,8 @@ interface PreregistrationInfoModalProps {
   zipCodeField: FieldOfType<string>;
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  parentFormId: string; // for analytics
+  parentFormName: string; // for analytics
 }
 
 /**
@@ -25,17 +30,30 @@ export function PreregistrationInfoModal({
   zipCodeField,
   showModal,
   setShowModal,
+  parentFormId,
+  parentFormName,
 }: PreregistrationInfoModalProps) {
   const router = useRouter();
   const state = usePipe(zipCodeField, ({ value }) => zipState(value));
   const preregistrationInformation = getPreregistrationInfo(state);
+
+  const closeModal = () => setShowModal(false);
+
+  const keepGoing = () => {
+    router.push(VoterRegistrationPathnames.NAMES);
+    sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+      formId: parentFormId,
+      formName: parentFormName,
+      succeeded: true,
+    });
+  };
 
   return (
     <Modal
       ariaLabel={`Preregistration requirements for ${state}`}
       theme="light"
       isOpen={showModal}
-      closeModal={() => setShowModal(false)}
+      closeModal={closeModal}
     >
       <h3 className={styles.title}>
         Hey there!
@@ -46,9 +64,7 @@ export function PreregistrationInfoModal({
       <div className={styles.buttons_container}>
         <Button
           type="button"
-          onClick={() => {
-            router.push(VoterRegistrationPathnames.NAMES);
-          }}
+          onClick={keepGoing}
           className={styles.button}
           variant="inverted"
           size="sm"
@@ -57,7 +73,7 @@ export function PreregistrationInfoModal({
         </Button>
         <Button
           type="button"
-          onClick={() => setShowModal(false)}
+          onClick={closeModal}
           className={styles.button}
           variant="inverted"
           size="sm"

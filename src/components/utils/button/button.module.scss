@@ -1,66 +1,64 @@
 @use '../../../styles/partials' as *;
 
-
 @layer {
-
-@mixin -base {
-  position: relative;
-  display: inline-block;
-  font-family: $font-family-bebas-neue;
-  font-weight: $font-weight-regular;
-  letter-spacing: $letter-spacing-large;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  border-style: solid;
-  border-radius: 40px;
-  border-width: 4px;
-  border-color: $color-black-8by8;
-  margin: 4px; 
-  box-shadow: 0 0 0 4px $color-white;
-  &:disabled {
-    opacity: 0.6;
+  @mixin -base {
+    position: relative;
+    display: inline-block;
+    font-family: $font-family-bebas-neue;
+    font-weight: $font-weight-regular;
+    letter-spacing: $letter-spacing-large;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-style: solid;
+    border-radius: 40px;
+    border-width: 4px;
+    border-color: $color-black-8by8;
+    margin: 4px;
+    box-shadow: 0 0 0 4px $color-white;
+    &:disabled {
+      opacity: 0.6;
+    }
   }
-}
 
-@mixin -gradient-text {
-  :first-child {
+  @mixin -gradient-text {
+    :first-child {
+      background: $gradient-yellow-teal;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+      color: transparent;
+      font-size: inherit;
+    }
+  }
+
+  .gradient {
+    @include -base;
     background: $gradient-yellow-teal;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    color: transparent;
-    font-size: inherit;
+    color: $color-black-8by8;
   }
-}
 
-.gradient {
-  @include -base;
-  background: $gradient-yellow-teal;
-  color: $color-black-8by8;
-}
+  .inverted {
+    @include -base;
+    @include -gradient-text;
+    background: $color-black-8by8;
+  }
 
-.inverted {
-  @include -base;
-  @include -gradient-text;
-  background: $color-black-8by8;
-}
+  .lg {
+    font-size: $font-size-lg;
+    height: 64px;
+    border-radius: 40px;
+    border-width: 4px;
+  }
 
-.lg {
-  font-size: $font-size-lg;
-  height: 64px;
-  border-radius: 40px;
-  border-width: 4px;
-}
+  .sm {
+    font-size: $font-size-md;
+    padding: 4px 14px;
+  }
 
-.sm {
-  font-size: $font-size-md;
-  padding: 4px 14px;
-}
-
-.wide {
-  width: 100%;
- }
+  .wide {
+    width: 100%;
+  }
 }

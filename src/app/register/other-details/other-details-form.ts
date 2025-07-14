@@ -19,6 +19,7 @@ import {
 export const OtherDetailsForm = FormFactory.createSubForm(
   class OtherDetailsTemplate extends SubFormTemplate {
     public readonly name = 'otherDetails';
+    public readonly id = 'voter-registration/other-details';
     public readonly autoTrim = true;
     public readonly fields: [
       TransientField<'party', string>,

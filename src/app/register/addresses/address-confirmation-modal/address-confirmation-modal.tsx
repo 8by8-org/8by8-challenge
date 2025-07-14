@@ -8,6 +8,8 @@ import { MissingSubpremise } from './missing-subpremise';
 import { UnconfirmedComponents } from './unconfirmed-components';
 import { ReviewAddresses } from './review-addresses';
 import { AddressErrorTypes } from '@/model/types/addresses/address-error-types';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
 import type { AddressesForm } from '../addresses-form';
 import type { AddressErrors } from '@/model/types/addresses/address-errors';
 
@@ -30,6 +32,11 @@ export function AddressConfirmationModal({
       VoterRegistrationPathnames.OTHER_DETAILS +
         `?state=${addressesForm.state.value.homeAddress.state}`,
     );
+    sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+      formId: addressesForm.id,
+      formName: addressesForm.name,
+      succeeded: true,
+    });
   };
 
   const nextOrContinue = () => {

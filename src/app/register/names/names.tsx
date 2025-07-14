@@ -16,6 +16,9 @@ import { MoreInfo } from '@/components/utils/more-info';
 import { Button } from '@/components/utils/button';
 import { getFirstNonValidInputId } from './utils/get-first-non-valid-input-id';
 import { focusOnElementById } from '@/utils/client/focus-on-element-by-id';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
+import { getInvalidFieldNames } from '@/utils/client/get-invalid-field-names';
 import type { FormEventHandler } from 'react';
 import styles from './styles.module.scss';
 
@@ -37,14 +40,25 @@ export const Names = hasNotCompletedAction(
       if (!ValidityUtils.isValid(namesForm)) {
         const firstNonValidInputId = getFirstNonValidInputId(namesForm);
         firstNonValidInputId && focusOnElementById(firstNonValidInputId);
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId: namesForm.id,
+          formName: namesForm.name,
+          succeeded: false,
+          invalidFields: getInvalidFieldNames(namesForm),
+        });
         return;
       }
 
       router.push(VoterRegistrationPathnames.ADDRESSES);
+      sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+        formId: namesForm.id,
+        formName: namesForm.name,
+        succeeded: true,
+      });
     };
 
     return (
-      <form onSubmit={onSubmit}>
+      <form id={namesForm.id} name={namesForm.name} onSubmit={onSubmit}>
         <YourName />
         <div className={styles.checkbox_container}>
           <Checkbox

@@ -21,6 +21,9 @@ import { US_STATE_ABBREVIATIONS } from '@/constants/us-state-abbreviations';
 import { calculateAge } from './utils/calculate-age';
 import { focusOnElementById } from '@/utils/client/focus-on-element-by-id';
 import { getFirstNonValidInputId } from './utils/get-first-non-valid-input-id';
+import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
+import { AnalyticsEventType } from '@/analytics/analytics-event-type';
+import { getInvalidFieldNames } from '@/utils/client/get-invalid-field-names';
 import styles from './styles.module.scss';
 
 export const Eligibility = hasNotCompletedAction(
@@ -48,6 +51,12 @@ export const Eligibility = hasNotCompletedAction(
       if (!ValidityUtils.isValid(eligibilityForm)) {
         const firstNonValidInputId = getFirstNonValidInputId(eligibilityForm);
         firstNonValidInputId && focusOnElementById(firstNonValidInputId);
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId: eligibilityForm.id,
+          formName: eligibilityForm.name,
+          succeeded: false,
+          invalidFields: getInvalidFieldNames(eligibilityForm),
+        });
         return;
       }
 
@@ -61,11 +70,20 @@ export const Eligibility = hasNotCompletedAction(
         setShowPreregistrationInfoModal(true);
       } else {
         router.push(VoterRegistrationPathnames.NAMES);
+        sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
+          formId: eligibilityForm.id,
+          formName: eligibilityForm.name,
+          succeeded: true,
+        });
       }
     };
 
     return (
-      <form onSubmit={onSubmit}>
+      <form
+        id={eligibilityForm.id}
+        name={eligibilityForm.name}
+        onSubmit={onSubmit}
+      >
         <p className="mb_md">
           Registering to vote is easy, and only takes a few minutes!
         </p>
@@ -172,6 +190,8 @@ export const Eligibility = hasNotCompletedAction(
             stateAbbr={stateAbbr}
             showModal={showStateInformationModal}
             setShowModal={setShowPreregistrationInfoModal}
+            parentFormId={eligibilityForm.id}
+            parentFormName={eligibilityForm.name}
           />
         )}
         {showPreregistrationInfoModal && (
@@ -179,6 +199,8 @@ export const Eligibility = hasNotCompletedAction(
             zipCodeField={eligibilityForm.fields.zip}
             showModal={showPreregistrationInfoModal}
             setShowModal={setShowPreregistrationInfoModal}
+            parentFormId={eligibilityForm.id}
+            parentFormName={eligibilityForm.name}
           />
         )}
       </form>
