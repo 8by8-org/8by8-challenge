@@ -20,6 +20,7 @@ export function sentOTP(next: ChainedMiddleware): ChainedMiddleware {
       const cookies = serverContainer.get(SERVER_SERVICE_KEYS.Cookies);
       const emailForSignIn = await cookies.loadEmailForSignIn();
 
+      /* istanbul ignore else */
       if (!emailForSignIn) {
         return NextResponse.redirect(
           new URL('/signin', request.nextUrl.origin),

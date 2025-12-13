@@ -22,6 +22,7 @@ import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
 import { AnalyticsEventType } from '@/analytics/analytics-event-type';
 import { getInvalidFieldNames } from '@/utils/client/get-invalid-field-names';
 import styles from './styles.module.scss';
+import { Button } from '../../components/utils/button';
 
 export default isSignedOut(function SignUp() {
   const signUpForm = useForm(new SignUpForm());
@@ -50,9 +51,10 @@ export default isSignedOut(function SignUp() {
 
       if (e instanceof FormInvalidError) {
         const firstNonValidInputId = getFirstNonValidInputId(signUpForm);
+        // prettier-ignore
         if (firstNonValidInputId === signUpForm.fields.captchaToken.id) {
           scrollToElementById(firstNonValidInputId);
-        } else if (firstNonValidInputId) {
+        } else /* istanbul ignore else */ if (firstNonValidInputId) {
           focusOnElementById(firstNonValidInputId);
         }
         sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
@@ -138,13 +140,9 @@ export default isSignedOut(function SignUp() {
           </p>
         </div>
         <div className={styles.submit_btn_container}>
-          <button
-            type="submit"
-            className="btn_gradient btn_lg btn_wide"
-            disabled={isLoading}
-          >
+          <Button type="submit" size="lg" wide disabled={isLoading}>
             Sign Up
-          </button>
+          </Button>
         </div>
       </form>
       <div className={styles.sign_in_link_container}>

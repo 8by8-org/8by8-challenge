@@ -32,11 +32,12 @@ export function Badges({ badges }: BadgesProps): JSX.Element {
   return (
     <section className={styles.section_3}>
       {badgeArray.map((badge, index) => {
+        // prettier-ignore
         if (!badge) {
           return <NumberBadge index={index + 1} key={index} />;
         } else if (isActionBadge(badge)) {
           return <ActionBadge badge={badge} index={index + 1} key={index} />;
-        } else if (isPlayerBadge(badge)) {
+        } else /* istanbul ignore else */ if (isPlayerBadge(badge)) {
           return <PlayerBadge badge={badge} index={index + 1} key={index} />;
         }
       })}

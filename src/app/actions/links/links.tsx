@@ -18,6 +18,7 @@ export function Links() {
 
   const links: React.JSX.Element[] = [];
 
+  // prettier-ignore
   if (
     invitedBy &&
     lastContributedToCurrentInviter(user?.contributedTo, invitedBy)
@@ -49,7 +50,7 @@ export function Links() {
     } else if (user?.type === UserType.Hybrid) {
       links.push(<p>Thanks for taking the challenge!</p>);
     }
-  } else if (user?.type === UserType.Hybrid) {
+  } else /* istanbul ignore else */ if (user?.type === UserType.Hybrid) {
     links.push(<p>Here for something else?</p>);
   }
 

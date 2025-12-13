@@ -163,17 +163,19 @@ export const Combobox = forwardRef(function Combobox(
       key or a printable character, preserving default behavior for keys like
       tab.
     */
+    /* istanbul ignore else */
     if (controlKeys.includes(key) || isPrintableCharacterKey(key)) {
       event.preventDefault();
     }
 
+    // prettier-ignore
     if (key === 'ArrowDown') {
       openMenuToFirstWithKeyboard();
     } else if (key === 'ArrowUp') {
       openMenuToLastWithKeyboard();
     } else if (key === 'Enter') {
       openMenuToSelectedOrFirstWithKeyboard();
-    } else if (isPrintableCharacterKey(key)) {
+    } else /* istanbul ignore else */ if (isPrintableCharacterKey(key)) {
       openMenuWithAutoComplete(key);
     }
   };

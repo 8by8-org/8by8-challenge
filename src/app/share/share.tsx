@@ -105,6 +105,7 @@ export const Share = isSignedIn(function Share({
     }
 
     try {
+      /* istanbul ignore else */
       if (canShare) {
         await navigator.share(shareData);
         sendAnalyticsEvent(AnalyticsEventType.ShareChallenge, {

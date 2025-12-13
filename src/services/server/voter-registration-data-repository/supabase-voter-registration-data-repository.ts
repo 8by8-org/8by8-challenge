@@ -12,9 +12,7 @@ export const SupabaseVoterRegistrationDataRepository = inject(
    * handles voter registration proccess
    * @example
    */
-  class SupabaseVoterRegistrationDataRepository
-    implements VoterRegistrationDataRepository
-  {
+  class SupabaseVoterRegistrationDataRepository implements VoterRegistrationDataRepository {
     constructor(
       private createSupabaseClient: CreateSupabaseClient,
       private encryptor: Encryptor,

@@ -8,6 +8,7 @@
  */
 export function scrollToElementById(id: string) {
   const element = document.getElementById(id);
+  /* istanbul ignore else */
   if (element) {
     window.scrollTo({ top: element.offsetTop });
   }

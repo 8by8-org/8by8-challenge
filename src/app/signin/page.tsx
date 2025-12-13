@@ -21,6 +21,7 @@ import { sendAnalyticsEvent } from '@/analytics/send-analytics-event';
 import { AnalyticsEventType } from '@/analytics/analytics-event-type';
 import { getInvalidFieldNames } from '@/utils/client/get-invalid-field-names';
 import styles from './styles.module.scss';
+import { Button } from '../../components/utils/button';
 
 export default isSignedOut(function SignIn() {
   const signInForm = useForm(new SignInForm());
@@ -105,13 +106,9 @@ export default isSignedOut(function SignIn() {
           <Turnstile field={signInForm.fields.captchaToken} />
         </div>
         <div className={styles.submit_btn_container}>
-          <button
-            type="submit"
-            className="btn_gradient btn_lg btn_wide"
-            disabled={isLoading}
-          >
+          <Button type="submit" disabled={isLoading} size="lg" wide>
             Sign in
-          </button>
+          </Button>
         </div>
       </form>
       <div className={styles.sign_up_link_container}>
