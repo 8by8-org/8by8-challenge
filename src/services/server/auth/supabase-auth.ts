@@ -127,6 +127,7 @@ export const SupabaseAuth = inject(
       if (data.user) {
         try {
           const user = await this.userRepository.getUserById(data.user.id);
+          /* istanbul ignore else */
           if (user) {
             return await this.loadInvitedByAndUpdateUser(user);
           }

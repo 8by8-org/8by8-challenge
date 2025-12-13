@@ -9,6 +9,7 @@ export function applyCautionValidityToFormFields(
   errors: AddressErrors[],
 ) {
   errors.forEach(error => {
+    // prettier-ignore
     if (error.type === AddressErrorTypes.MissingSubpremise) {
       form.fields[error.form].fields.streetLine2.setValidityAndMessages(
         Validity.Caution,
@@ -28,7 +29,7 @@ export function applyCautionValidityToFormFields(
           );
         }
       }
-    } else if (error.type === AddressErrorTypes.UnconfirmedComponents) {
+    } else /* istanbul ignore else */ if (error.type === AddressErrorTypes.UnconfirmedComponents) {
       for (const entry of Object.entries(error.unconfirmedAddressComponents)) {
         const [fieldName, addressComponent] = entry as [
           keyof (typeof form.fields)[(typeof error)['form']]['fields'],

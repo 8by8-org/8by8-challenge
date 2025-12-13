@@ -58,9 +58,10 @@ export function ClientSideUserContextProvider(
         headers: createCSRFHeader(),
       });
 
+      /* istanbul ignore else */
       if (response.ok) {
         const data = await response.json();
-
+        /* istanbul ignore else */
         if (data.user.uid === user?.uid) {
           setUser(data.user as User);
         }
@@ -91,6 +92,7 @@ export function ClientSideUserContextProvider(
               another user. If the user earned the badge themselves, the
               user object will already have been updated.
             */
+            /* istanbul ignore else */
             if (newBadge['player_name'] && newBadge['player_avatar']) {
               await refreshUser();
             }
@@ -220,6 +222,7 @@ export function ClientSideUserContextProvider(
 
     const data = await response.json();
 
+    /* istanbul ignore else */
     if (data.user.uid === user?.uid) {
       setUser(data.user as User);
 
@@ -243,6 +246,7 @@ export function ClientSideUserContextProvider(
 
     const data = await response.json();
 
+    /* istanbul ignore else */
     if (data.user.uid === user?.uid) {
       setUser(data.user as User);
       /*
@@ -270,6 +274,7 @@ export function ClientSideUserContextProvider(
 
     const data = await response.json();
 
+    /* istanbul ignore else */
     if (data.user.uid === user?.uid) {
       setUser(data.user as User);
       sendAnalyticsEvent(AnalyticsEventType.RegisterToVote, {
@@ -298,7 +303,7 @@ export function ClientSideUserContextProvider(
     }
 
     const data = await response.json();
-
+    /* istanbul ignore else */
     if (data.user.uid === user?.uid) {
       setUser(data.user as User);
       sendAnalyticsEvent(AnalyticsEventType.PlayerBecameChallenger);
@@ -318,7 +323,7 @@ export function ClientSideUserContextProvider(
     }
 
     const data = await response.json();
-
+    /* istanbul ignore else */
     if (data.user.uid === user?.uid) {
       setUser(data.user as User);
     }

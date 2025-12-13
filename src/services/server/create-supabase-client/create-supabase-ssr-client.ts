@@ -1,6 +1,6 @@
 import 'server-only';
 import { bind } from 'undecorated-di';
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { PUBLIC_ENVIRONMENT_VARIABLES } from '@/constants/public-environment-variables';
 import { PRIVATE_ENVIRONMENT_VARIABLES } from '@/constants/private-environment-variables';
@@ -32,7 +32,13 @@ export const createSupabaseSSRClient = bind(
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(
+          cookiesToSet: {
+            name: string;
+            value: string;
+            options: CookieOptions;
+          }[],
+        ) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),

@@ -12,7 +12,7 @@ import {
   type GoTrueAdminApi,
   type SupabaseClient,
 } from '@supabase/supabase-js';
-import type { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient';
+import type { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient.js';
 
 describe('deleteAuthUsers', () => {
   it('deletes all rows from auth.users.', async () => {
@@ -68,7 +68,7 @@ describe('deleteAuthUsers', () => {
 
     const supabase = Builder<SupabaseClient>().auth(supabaseAuth).build();
 
-    await expect(deleteAuthUsers(supabase)).rejects.toThrow(error);
+    await expect(deleteAuthUsers(supabase)).rejects.toThrow(error.message);
   });
 
   it('throws an error if supabase.auth.admin.deleteUser() returns an error.', async () => {
@@ -100,7 +100,6 @@ describe('deleteAuthUsers', () => {
       .build();
 
     const supabase = Builder<SupabaseClient>().auth(supabaseAuth).build();
-
-    await expect(deleteAuthUsers(supabase)).rejects.toThrow(error);
+    await expect(deleteAuthUsers(supabase)).rejects.toThrow(error.message);
   });
 });
