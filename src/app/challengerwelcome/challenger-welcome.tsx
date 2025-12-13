@@ -13,6 +13,7 @@ import stepThree from '../../../public/static/images/pages/challenger-welcome/st
 import stepFour from '../../../public/static/images/pages/challenger-welcome/step-4.png';
 import logo from '../../../public/static/images/shared/8by8-logo.svg';
 import styles from './styles.module.scss';
+import { Button } from '../../components/utils/button';
 
 export const ChallengerWelcome = isSignedOut(
   wasNotInvited(function ChallengerWelcome() {
@@ -51,13 +52,13 @@ export const ChallengerWelcome = isSignedOut(
             #8by8Challenge—register 8 friends to register to vote in 8 days!
           </p>
 
-          <button
+          <Button
             type="button"
-            className={styles.get_started_btn}
             onClick={() => router.push('/signup')}
+            className={styles.get_started_btn}
           >
             Get Started
-          </button>
+          </Button>
 
           <p className={styles.signin_line}>
             Already have an account? <Link href="/signin">Sign in</Link>
@@ -111,13 +112,13 @@ export const ChallengerWelcome = isSignedOut(
             className={styles.image}
           />
 
-          <button
+          <Button
             type="button"
             className={styles.get_started_btn}
             onClick={() => router.push('/signup')}
           >
             Get Started
-          </button>
+          </Button>
 
           <p className={styles.signin_line}>
             Already have an account?{' '}

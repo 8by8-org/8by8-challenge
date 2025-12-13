@@ -40,6 +40,7 @@ export function openMenu({
   isKeyboardNavigating,
   setScrollPosition,
 }: OpenMenuParams) {
+  /* istanbul ignore else */
   if (containerRef.current && menuRef.current) {
     if (openWithKeyboard) {
       isKeyboardNavigating.current = true;

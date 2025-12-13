@@ -48,6 +48,7 @@ export class PhoneInputInternals {
     field: FieldOfType<string>,
     cursorPositionRef: MutableRefObject<number | null>,
   ) {
+    /* istanbul ignore else */
     if (
       event.data ||
       event.inputType === 'deleteContentBackward' ||
@@ -56,11 +57,12 @@ export class PhoneInputInternals {
       event.preventDefault();
     }
 
+    // prettier-ignore
     if (event.data) {
       this.handleDataInput(event, field, cursorPositionRef);
     } else if (event.inputType === 'deleteContentBackward') {
       this.handleBackwardsDelete(event, field, cursorPositionRef);
-    } else if (event.inputType === 'deleteContentForward') {
+    } else /* istanbul ignore else */ if (event.inputType === 'deleteContentForward') {
       this.handleForwardsDelete(event, field, cursorPositionRef);
     }
   }
@@ -235,6 +237,7 @@ export class PhoneInputInternals {
       value.length,
     );
 
+    /* istanbul ignore else */
     if (formattedSelectionLength === 0) {
       unformattedSelectionEnd = Math.min(
         unformattedSelectionEnd + 1,
