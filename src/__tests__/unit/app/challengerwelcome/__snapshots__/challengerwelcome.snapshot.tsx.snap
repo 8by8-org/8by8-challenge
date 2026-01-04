@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`ChallengerWelcome renders challenger-welcome page unchanged 1`] = `
 <div>
@@ -54,10 +54,12 @@ exports[`ChallengerWelcome renders challenger-welcome page unchanged 1`] = `
           Closing the voter registration gap has to be a community effort, so we're asking everyone to join us in taking the #8by8Challenge—register 8 friends to register to vote in 8 days!
         </p>
         <button
-          class="get_started_btn"
+          class="gradient lg get_started_btn"
           type="button"
         >
-          Get Started
+          <span>
+            Get Started
+          </span>
         </button>
         <p
           class="signin_line"
@@ -173,10 +175,12 @@ exports[`ChallengerWelcome renders challenger-welcome page unchanged 1`] = `
           width="40"
         />
         <button
-          class="get_started_btn"
+          class="gradient lg get_started_btn"
           type="button"
         >
-          Get Started
+          <span>
+            Get Started
+          </span>
         </button>
         <p
           class="signin_line"

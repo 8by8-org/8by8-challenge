@@ -4,7 +4,6 @@ import { createId } from '@paralleldrive/cuid2';
 import { Builder } from 'builder-pattern';
 import { UserType } from '@/model/enums/user-type';
 import type { User } from '@/model/types/user';
-import type { ChallengerData } from '@/model/types/challenger-data';
 
 describe('createShareLink', () => {
   it(`returns a link in the format 
@@ -65,6 +64,9 @@ describe('createShareLink', () => {
 
     expect(createShareLink(user)).toBe('');
 
-    window.location = location;
+    Object.defineProperty(window, 'location', {
+      value: location,
+      configurable: true,
+    });
   });
 });

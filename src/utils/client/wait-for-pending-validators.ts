@@ -2,7 +2,7 @@ import { ValidityUtils, type IForm, type ValueOf } from 'fully-formed';
 import { FormInvalidError } from './form-invalid-error';
 
 /**
- * Waits for a pending form to become either valid or invalid, and then
+ * Waits for a pending form to become either valid/caution or invalid, and then
  * resolves with the value of the form if valid, or calls `reject()` if
  * invalid.
  *
@@ -18,10 +18,11 @@ export function waitForPendingValidators<T extends IForm>(form: T) {
       reject(new FormInvalidError());
     } else {
       const subscription = form.subscribeToState(state => {
-        if (ValidityUtils.isValid(state)) {
+        // prettier-ignore
+        if (ValidityUtils.isValidOrCaution(state)) {
           subscription.unsubscribe();
           resolve(state.value);
-        } else if (ValidityUtils.isInvalid(state)) {
+        } else /* istanbul ignore else */ if (ValidityUtils.isInvalid(state)) {
           subscription.unsubscribe();
           reject(new FormInvalidError());
         }

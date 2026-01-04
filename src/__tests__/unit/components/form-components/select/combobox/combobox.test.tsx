@@ -1001,9 +1001,9 @@ describe('Combobox', () => {
       defaultValue: 'CA',
     });
 
-    class ZipStateValidator
-      implements IValidator<GroupValue<[typeof zip, typeof state]>>
-    {
+    class ZipStateValidator implements IValidator<
+      GroupValue<[typeof zip, typeof state]>
+    > {
       validate = (value: GroupValue<[typeof zip, typeof state]>) => {
         const expectedState = zipState(value.zip);
 

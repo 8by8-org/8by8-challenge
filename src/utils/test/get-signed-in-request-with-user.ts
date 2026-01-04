@@ -1,6 +1,6 @@
 import { PRIVATE_ENVIRONMENT_VARIABLES } from '@/constants/private-environment-variables';
 import { PUBLIC_ENVIRONMENT_VARIABLES } from '@/constants/public-environment-variables';
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextRequest } from 'next/server';
 import { MockNextCookies } from './mock-next-cookies';
 import type { User } from '@/model/types/user';
@@ -35,7 +35,13 @@ export async function getSignedInRequestWithUser(
         getAll() {
           return mockCookies.cookies().getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(
+          cookiesToSet: {
+            name: string;
+            value: string;
+            options: CookieOptions;
+          }[],
+        ) {
           cookiesToSet.forEach(({ name, value, options }) =>
             mockCookies.cookies().set(name, value, options),
           );

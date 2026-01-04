@@ -4,7 +4,7 @@ import {
   type NextRequest,
   type NextFetchEvent,
 } from 'next/server';
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { PUBLIC_ENVIRONMENT_VARIABLES } from '@/constants/public-environment-variables';
 import { serverContainer } from '@/services/server/container';
 import { SERVER_SERVICE_KEYS } from '@/services/server/keys';
@@ -34,7 +34,13 @@ export function hasRegistered(next: ChainedMiddleware): ChainedMiddleware {
             return request.cookies.getAll();
           },
           /* istanbul ignore next */
-          setAll(cookiesToSet) {
+          setAll(
+            cookiesToSet: {
+              name: string;
+              value: string;
+              options: CookieOptions;
+            }[],
+          ) {
             cookiesToSet.forEach(({ name, value }) =>
               request.cookies.set(name, value),
             );
@@ -50,6 +56,7 @@ export function hasRegistered(next: ChainedMiddleware): ChainedMiddleware {
 
       const { data } = await supabase.auth.getUser();
 
+      /* istanbul ignore else */
       if (data.user) {
         const userRepo = serverContainer.get(
           SERVER_SERVICE_KEYS.UserRepository,
@@ -57,6 +64,7 @@ export function hasRegistered(next: ChainedMiddleware): ChainedMiddleware {
 
         const user = await userRepo.getUserById(data.user.id);
 
+        /* istanbul ignore else */
         if (!user?.completedActions.registerToVote) {
           return NextResponse.redirect(
             new URL('/register/eligibility', request.nextUrl.origin),

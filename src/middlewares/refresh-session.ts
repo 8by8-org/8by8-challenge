@@ -1,5 +1,5 @@
 import 'server-only';
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import {
   NextResponse,
   type NextRequest,
@@ -27,7 +27,13 @@ export function refreshSession(next: ChainedMiddleware): ChainedMiddleware {
           return request.cookies.getAll();
         },
         /* istanbul ignore next */
-        setAll(cookiesToSet) {
+        setAll(
+          cookiesToSet: {
+            name: string;
+            value: string;
+            options: CookieOptions;
+          }[],
+        ) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value),
           );

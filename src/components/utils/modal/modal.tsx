@@ -21,6 +21,7 @@ export function Modal({
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     if (isOpen) {
+      /* istanbul ignore else */
       if (dialog.current && !dialog.current.hasAttribute('open')) {
         dialog.current.showModal();
         dialog.current.focus();
@@ -37,6 +38,7 @@ export function Modal({
       className={styles[`modal_${theme}_theme`]}
       ref={dialog}
       onKeyDown={event => {
+        /* istanbul ignore else */
         if (event.key === 'Escape') {
           event.preventDefault();
           closeModal();

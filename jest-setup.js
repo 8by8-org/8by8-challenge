@@ -1,9 +1,11 @@
 /*
-  Hides warning messages due to multiple Supabase clients being created for tests. 
-  Supabase prints a warning message to the console because multiple Supabase 
-  clients existing in the same browser context could result in unexpected 
-  behavior. Multiple Supabase clients is often a necessity for testing, so this 
-  warning message is hidden.
+  Hide warning messages that are irrelevant to the testing environment, re:
+  
+  - The creation of multiple Supabase clients. Supabase prints a warning message 
+    to the console because the existence of multiple Supabase clients in the 
+    same browsing context could result in unexpected behavior.
+
+  - Google Analytics not initialized.
 */
 const { warn } = console;
 
@@ -11,13 +13,13 @@ const actualWarn = (message, ...optionalParams) => {
   warn.call(console, message, ...optionalParams);
 };
 
+const warningsToIgnore = [
+  'Multiple GoTrueClient instances detected in the same browser context.',
+  '@next/third-parties: GA has not been initialized',
+];
+
 console.warn = (message, ...optionalParams) => {
-  if (
-    message &&
-    message.includes(
-      'Multiple GoTrueClient instances detected in the same browser context.',
-    )
-  ) {
+  if (message && warningsToIgnore.some(warning => message.includes(warning))) {
     return;
   }
 

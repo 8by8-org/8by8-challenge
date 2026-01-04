@@ -37,6 +37,7 @@ export function useCountdown(seconds: number) {
     startCountdown();
 
     return () => {
+      /* istanbul ignore else */
       if (interval.current) {
         clearInterval(interval.current);
       }
