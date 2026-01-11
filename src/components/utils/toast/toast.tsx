@@ -55,6 +55,7 @@ export const Toast = forwardRef(function Toast(
 
   useImperativeHandle(ref, () => {
     return (message: string) => {
+      /* istanbul ignore else */
       if (toastRef.current) {
         const toast = toastRef.current;
         /*

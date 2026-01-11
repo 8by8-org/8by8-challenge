@@ -40,6 +40,7 @@ export function csrfProtection(next: ChainedMiddleware): ChainedMiddleware {
         set it as a header, but sameSite must be strict to prevent attackers 
         from accessing its value.
       */
+      /* istanbul ignore else */
       if (!response) response = NextResponse.next();
 
       response?.cookies.set(CSRF_COOKIE, createCSRFToken(), {

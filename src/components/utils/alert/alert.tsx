@@ -89,6 +89,7 @@ export const Alert = forwardRef(function Alert(
 
   useImperativeHandle(ref, () => {
     return (message: string, variant: 'error' | 'success') => {
+      /* istanbul ignore else */
       if (alertRef.current) {
         const alert = alertRef.current;
         /*

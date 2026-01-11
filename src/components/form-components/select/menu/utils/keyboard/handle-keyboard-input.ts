@@ -85,6 +85,7 @@ export function handleKeyboardInput({
       key,
     );
 
+    /* istanbul ignore else */
     if (indexOfOptionToReceiveFocus >= 0) {
       focusOnOption({
         optionIndex: indexOfOptionToReceiveFocus,

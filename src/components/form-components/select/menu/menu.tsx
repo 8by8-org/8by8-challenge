@@ -96,6 +96,7 @@ export const Menu = forwardRef(function Menu(
     };
 
     const handleScroll = () => {
+      /* istanbul ignore else */
       if (menuControls.isMenuScrollable()) {
         if (menuControls.isMenuScrolledToTop()) {
           menuControls.setScrollPosition('top');

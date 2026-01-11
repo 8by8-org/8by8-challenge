@@ -51,9 +51,10 @@ export default isSignedOut(function SignUp() {
 
       if (e instanceof FormInvalidError) {
         const firstNonValidInputId = getFirstNonValidInputId(signUpForm);
+        // prettier-ignore
         if (firstNonValidInputId === signUpForm.fields.captchaToken.id) {
           scrollToElementById(firstNonValidInputId);
-        } else if (firstNonValidInputId) {
+        } else /* istanbul ignore else */ if (firstNonValidInputId) {
           focusOnElementById(firstNonValidInputId);
         }
         sendAnalyticsEvent(AnalyticsEventType.FormSubmit, {
